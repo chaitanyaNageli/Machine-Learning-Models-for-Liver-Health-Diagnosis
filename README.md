@@ -53,7 +53,7 @@ The dataset includes:
 
 -->Target column: 1 = Cirrhosis, 0 = Healthy
 
-###🛠️ Tech Stack
+### 🛠️ Tech Stack
 
 -->Python
 
@@ -66,5 +66,5 @@ The dataset includes:
 -->HTML/CSS (basic)
 
 
-###👨‍💻 Author
+### 👨‍💻 Author
 Chaitanya Kumar
