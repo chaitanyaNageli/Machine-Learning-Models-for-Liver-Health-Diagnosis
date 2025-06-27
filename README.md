@@ -27,6 +27,7 @@ Visit: http://127.0.0.1:5000
 
 
 ###🧠 Features
+
 -->Input form for 13 health-related values
 
 -->ML prediction using Logistic Regression
