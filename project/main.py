@@ -64,7 +64,8 @@ def submit():
         polymorphs, lymphocytes, monocytes, eosinophils,
         albumin, globulin, al_phosphatase, sgot, sgpt
     ]]
-
+    acc=accuracy_score(y_test, y_pred)
+    print(f"Accuracy: {acc*100}%")
     prediction = model.predict(user_input)
     result="NO"
     if prediction[0] == 1:
