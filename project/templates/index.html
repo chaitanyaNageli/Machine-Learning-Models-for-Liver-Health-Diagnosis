@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liver Health Form</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <form action="/submit" method="POST">
+        <div><label>Enter your Age</label><input type="text" name="age"/></div>
+        <div><label>Enter Duration of alcohol consumption (years)</label><input type="text" name="duration"/></div>
+        <div><label>Enter Quantity of alcohol consumption (quarters/day)</label><input type="text" name="quantity"/></div>
+        <div><label>Enter Diabetes Result</label><input type="text" name="diabetes"/></div>
+        <div><label>Enter Quantity of Polymorphs</label><input type="text" name="polymorphs"/></div>
+        <div><label>Enter Quantity of Lymphocytes</label><input type="text" name="lymphocytes"/></div>
+        <div><label>Enter Quantity of Monocytes</label><input type="text" name="monocytes"/></div>
+        <div><label>Enter Quantity of Eosinophils</label><input type="text" name="eosinophils"/></div>
+        <div><label>Enter Quantity of Albumin (g/dl)</label><input type="text" name="albumin"/></div>
+        <div><label>Enter Globulin (g/dl)</label><input type="text" name="globulin"/></div>
+        <div><label>Enter AL.Phosphatase (U/L)</label><input type="text" name="al_phosphatase"/></div>
+        <div><label>Enter SGOT/AST (U/L)</label><input type="text" name="sgot"/></div>
+        <div><label>Enter SGPT/ALT (U/L)</label><input type="text" name="sgpt"/></div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
