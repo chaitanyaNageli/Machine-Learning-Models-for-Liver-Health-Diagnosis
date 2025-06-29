@@ -18,10 +18,10 @@ def submit():
         duration = int(request.form['duration'])
         quantity = int(request.form['quantity'])
         diabetes = int(request.form['diabetes'])
-        polymorphs = int(request.form['polymorphs'])
-        lymphocytes = int(request.form['lymphocytes'])
-        monocytes = int(request.form['monocytes'])
-        eosinophils = int(request.form['eosinophils'])
+        polymorphs = float(request.form['polymorphs'])
+        lymphocytes = float(request.form['lymphocytes'])
+        monocytes = float(request.form['monocytes'])
+        eosinophils = float(request.form['eosinophils'])
         albumin = float(request.form['albumin'])
         globulin = float(request.form['globulin'])
         al_phosphatase = float(request.form['al_phosphatase'])
@@ -30,48 +30,34 @@ def submit():
     except ValueError:
         return "Please enter valid numeric values in all fields."
 
-    # Load and prepare data
+   
     data = pd.read_excel('liver.xlsx')
-    col = 'Predicted Value(Out Come-Patient suffering from liver  cirrosis or not)'
-    data = data.dropna()
-    data[col] = data[col].astype(str).str.strip().str.upper().map({'YES': 1, 'NO': 0})
-    data['Diabetes Result'] = data['Diabetes Result'].astype(str).str.strip().str.upper().map({'YES': 1, 'NO': 0})
+    data=data.dropna()
 
-    # Features and labels
-    X = data[['Age', 'Duration of alcohol consumption(years)',
-              'Quantity of alcohol consumption (quarters/day)',
-              'Diabetes Result', 
-              'Polymorphs  (%) ',
-              'Lymphocytes  (%)',
-              'Monocytes   (%)', 
-              'Eosinophils   (%)', 
-              'Albumin   (g/dl)',
-              'Globulin  (g/dl)',
-              'AL.Phosphatase      (U/L)',
-              'SGOT/AST      (U/L)', 
-              'SGPT/ALT (U/L)']]
-    
-    y = data[col]
+    data = data.applymap(lambda x: 1 if str(x).strip().upper() == 'YES' else (0 if str(x).strip().upper() == 'NO' else x))
 
-    # Train model
+    columns=data.columns
+    X=data[columns[:-1]]
+
+    y=data[columns[-1]]
+
+
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model = LogisticRegression()
+    model = LogisticRegression(max_iter=1000)
     model.fit(X_train, y_train)
-
-    # Predict using real user input
+    
     user_input = [[
         age, duration, quantity, diabetes,
         polymorphs, lymphocytes, monocytes, eosinophils,
         albumin, globulin, al_phosphatase, sgot, sgpt
     ]]
-    acc=accuracy_score(y_test, y_pred)
-    print(f"Accuracy: {acc*100}%")
+
     prediction = model.predict(user_input)
     result="NO"
     if prediction[0] == 1:
-        result = "⚠️ You might be suffering from liver cirrhosis."
+        result = "You might be suffering from liver cirrhosis."
     else:
-        result = "✅ You are not likely suffering from liver cirrhosis."
+        result = " You are not likely suffering from liver cirrhosis."
 
     return render_template("result.html", result=result)
 
